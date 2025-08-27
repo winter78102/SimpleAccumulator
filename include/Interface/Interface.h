@@ -2,6 +2,7 @@
 
 #ifndef INTERFACE_H
 #define INTERFACE_H
+
 #include <iostream>
 #include <vector>
 #include <File/File.h>
@@ -9,13 +10,13 @@
 #include <numeric>
 
 
-class Interface{
+class Interface {
 public:
-    Interface()=default;
+    Interface() = default;
+
     void SelectStage();
-    void  Calculate();
 
-
+    void Calculate();
 
 private:
     int _SelectButton;
@@ -23,8 +24,6 @@ private:
     Consol _Consol;
 
 
-
-
-
 };
+
 #endif //INTERFACE_H

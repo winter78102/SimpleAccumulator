@@ -3,12 +3,12 @@
 #include <regex>
 #include <iterator>
 
-void Consol::GetString(){
+void Consol::GetString() {
 
-    std::cout<<"type your number with space between them\n"<<std::flush;
+    std::cout << "type your number with space between them\n" << std::flush;
     std::string Line;
-    while(Line.empty()) {
+    while (Line.empty()) {
         std::getline(std::cin, Line);
     }
-    _InputString=Line;
+    _InputString = Line;
 }
