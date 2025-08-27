@@ -3,7 +3,7 @@
 void Interface:: SelectStage(){
     while(1){
     std::cout<<">>how do you want to enter input type the number\n";
-    std::cout<<"1 . by files\n 2 . by consol\n>>";
+    std::cout<<"1 . by files\n2 . by consol\n>>";
     int Input;
     std::cin>>Input;
     if (Input==1 || Input == 2){
@@ -29,8 +29,12 @@ void Interface:: Calculate(){
     InputChannel->GetString();
     InputChannel->Read();
     Storage=InputChannel->GetStorage();
+    int Sum=0;
+    for (int Number: Storage) {
+        Sum+=Number;
 
-    std::cout<<"Sum ="<< std::accumulate(Storage.begin(), Storage.end(), 0)<<std::endl;
+    }
+    std::cout<<"Sum ="<< Sum<<std::endl;
     }
 
 
