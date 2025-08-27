@@ -14,7 +14,7 @@ void File:: GetString(){
     std::string BaseString,LineString;
 
     while (std::getline(InputFile, LineString)) {
-        BaseString=BaseString+LineString;
+        BaseString=BaseString+" "+ LineString;
 
     }
     _InputString=BaseString;
