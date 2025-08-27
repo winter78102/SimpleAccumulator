@@ -19,9 +19,11 @@ void Interface:: Calculate(){
     switch (_SelectButton) {
      case 1:
             InputChannel=&_File;
+            break;
 
     case 2:
         InputChannel=&_Consol;
+        break;
 }
 
     InputChannel->GetString();
