@@ -17,17 +17,17 @@ class Calculator {
 public:
     int PossibleNumber();
 
-    static int AccumTask(std::vector<int> Storage, int StartIndex, int EndIndex);
+    static int AccumTask(const std::vector<int> &Storage, int StartIndex, int EndIndex);
 
     void FillTaskQueue();
 
     void SetThreadNumber();
 
-    void FillThreadsQueue(std::vector<int> Storage);
+    void FillThreadsQueue(const std::vector<int> &Storage);
 
 
 private:
-    std::vector<std::shared_ptr<std::function<int(std::vector<int>, int, int)>>> _TaskQueue;
+    std::vector<std::shared_ptr<std::function<int(const std::vector<int> &, int, int)>>> _TaskQueue;
     int _ThreadNumber;
     std::vector<std::future<int>> _FutureOfTasks;
 

@@ -4,7 +4,7 @@ int Calculator::PossibleNumber() {
     return std::thread::hardware_concurrency();
 }
 
-int Calculator::AccumTask(std::vector<int> Storage, int StartIndex, int EndIndex) {
+int Calculator::AccumTask(const std::vector<int> &Storage, int StartIndex, int EndIndex) {
     if (Storage.empty()) { return -1; }
     int Sum = 0;
     for (int i = StartIndex; i < EndIndex; i++) {
@@ -14,7 +14,7 @@ int Calculator::AccumTask(std::vector<int> Storage, int StartIndex, int EndIndex
 }
 
 void Calculator::FillTaskQueue() {
-    _TaskQueue.push_back(std::make_shared<std::function<int(std::vector<int>, int, int)>>(AccumTask));
+    _TaskQueue.push_back(std::make_shared<std::function<int(const std::vector<int> &, int, int)>>(AccumTask));
 }
 
 
@@ -31,7 +31,7 @@ void Calculator::SetThreadNumber() {
     }
 }
 
-void Calculator::FillThreadsQueue(std::vector<int> Storage) {
+void Calculator::FillThreadsQueue(const std::vector<int> &Storage) {
     int ThreadSize = Storage.size() / _ThreadNumber;
     int ModSize = Storage.size() - ThreadSize * _ThreadNumber;
     int j = 0;
