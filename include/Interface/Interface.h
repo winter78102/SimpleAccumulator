@@ -7,6 +7,7 @@
 #include <vector>
 #include <File/File.h>
 #include <Consol/Consol.h>
+#include <Calculator/Calculator.h>
 #include <numeric>
 
 
@@ -16,12 +17,14 @@ public:
 
     void SelectStage();
 
+
     void Calculate();
 
 private:
     int _SelectButton;
     File _File;
     Consol _Consol;
+    Calculator _Calculator;
 
 
 };

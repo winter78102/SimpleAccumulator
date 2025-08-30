@@ -14,6 +14,7 @@ void Interface::SelectStage() {
     }
 }
 
+
 void Interface::Calculate() {
     std::vector<int> Storage;
     Reader *InputChannel;
@@ -30,14 +31,13 @@ void Interface::Calculate() {
     InputChannel->GetString();
     InputChannel->Read();
     Storage = InputChannel->GetStorage();
-    if (Storage.empty()) { return; }
-    int Sum = 0;
-    for (int Number: Storage) {
-        Sum += Number;
+    _Calculator.SetThreadNumber();
+    _Calculator.FillTaskQueue();
+    _Calculator.FillThreadsQueue(Storage);
 
-    }
-    std::cout << "Sum =" << Sum << std::endl;
 }
+
+
 
 
 

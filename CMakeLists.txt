@@ -10,7 +10,9 @@ file(GLOB_RECURSE HEADERS "${PROJECT_SOURCE_DIR}/include/*.h")
 message("Sources ${SOURCES}")
 message("Headers ${HEADERS}")
 # Create executable (no need to include headers here)
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES}
+        include/Calculator/Calculator.h
+        src/Calculator.cpp)
 
 # Add include path
 target_include_directories(${PROJECT_NAME} PRIVATE
