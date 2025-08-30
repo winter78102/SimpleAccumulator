@@ -33,16 +33,17 @@ void Calculator::SetThreadNumber() {
 
 void Calculator::FillThreadsQueue(std::vector<int> Storage) {
     int ThreadSize = Storage.size() / _ThreadNumber;
+    int ModSize = Storage.size() - ThreadSize * _ThreadNumber;
     int j = 0;
     for (int i = 0; i < _ThreadNumber; i++) {
-        _FutureOfTasks.push_back(std::async(std::launch::async, *_TaskQueue[0], Storage, j, j + ThreadSize));
+
+        _FutureOfTasks.push_back(std::async(std::launch::async, *_TaskQueue[0], Storage, j,
+                                            i == _ThreadNumber - 1 ? j + ThreadSize + ModSize : j + ThreadSize));
         j += ThreadSize;
     }
 
     int result = 0;
-    for (int i = ThreadSize * _ThreadNumber; i < Storage.size(); i++) {
-        result += Storage[i];
-    }
+
     for (auto &f: _FutureOfTasks) {
         result += f.get();   // waits if not finished yet
     }
