@@ -1,4 +1,5 @@
 #include <Interface/Interface.h>
+#include <Operator/Operator.h>
 
 void Interface::SelectStage() {
     while (1) {
@@ -31,10 +32,17 @@ void Interface::Calculate() {
     InputChannel->GetString();
     InputChannel->Read();
     Storage = InputChannel->GetStorage();
-    _Calculator.SetThreadNumber();
-    _Calculator.FillTaskQueue();
-    _Calculator.FillThreadsQueue(Storage);
+    _ThreadManager.SetThreadNumber();
+    _ThreadManager.FillTaskQueue();
+    _ThreadManager.FillThreadsQueue(Storage);
 
+}
+
+void Interface::SetOperatorSymbol() {
+    char Symbol;
+    std::cout<<">>Enter your desired operation symbol from + / * -"<<std::endl;
+    std::cin>>Symbol ;
+    _ThreadManager.
 }
 
 

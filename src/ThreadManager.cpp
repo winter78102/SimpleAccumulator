@@ -1,24 +1,12 @@
-#include <Calculator/Calculator.h>
+#include <ThreadManager/ThreadMnager.h>
 
-int Calculator::PossibleNumber() {
+
+int ThreadManager::PossibleNumber() {
     return std::thread::hardware_concurrency();
 }
 
-int Calculator::AccumTask(const std::vector<int> &Storage, int StartIndex, int EndIndex) {
-    if (Storage.empty()) { return -1; }
-    int Sum = 0;
-    for (int i = StartIndex; i < EndIndex; i++) {
-        Sum += Storage[i];
-    }
-    return Sum;
-}
 
-void Calculator::FillTaskQueue() {
-    _TaskQueue.push_back(std::make_shared<std::function<int(const std::vector<int> &, int, int)>>(AccumTask));
-}
-
-
-void Calculator::SetThreadNumber() {
+void ThreadManager::SetThreadNumber() {
     int EnteredThreadNumber;
     while (1) {
         std::cout << ">>Enter the number of threads for calculation from 1 to " << PossibleNumber() << std::endl;
@@ -31,13 +19,31 @@ void Calculator::SetThreadNumber() {
     }
 }
 
-void Calculator::FillThreadsQueue(const std::vector<int> &Storage) {
+void ThreadManager::FillThreads(const std::vector<int> &Storage) {
     int ThreadSize = Storage.size() / _ThreadNumber;
     int ModSize = Storage.size() - ThreadSize * _ThreadNumber;
     int j = 0;
+    Operator *Channel = nullptr;
+
+    switch (_InputSymbol) {
+        case '+':
+            Channel = &_Accum;
+            break;
+        case '-':
+            Channel = &_Subtract;
+            break;
+        case '*':
+            Channel = &_Multiply;
+            break;
+        case '/':
+            Channel = &_Divider;
+            break;
+    }
+
+
     for (int i = 0; i < _ThreadNumber; i++) {
 
-        _FutureOfTasks.push_back(std::async(std::launch::async, *_TaskQueue[0], Storage, j,
+        _FutureOfTasks.push_back(std::async(std::launch::async, &Channel->TaskDefinition(), Storage, j,
                                             i == _ThreadNumber - 1 ? j + ThreadSize + ModSize : j + ThreadSize));
         j += ThreadSize;
     }
@@ -49,3 +55,9 @@ void Calculator::FillThreadsQueue(const std::vector<int> &Storage) {
     }
     std::cout << ">>Sum = " << result << std::endl;
 }
+
+void ThreadManager::SetInputSymbol(char Symbol) {
+    _InputSymbol = Symbol;
+}
+
+

@@ -7,7 +7,7 @@
 #include <vector>
 #include <File/File.h>
 #include <Consol/Consol.h>
-#include <Calculator/Calculator.h>
+#include "ThreadManager//ThreadMnager.h"
 #include <numeric>
 
 
@@ -17,14 +17,16 @@ public:
 
     void SelectStage();
 
+    void SetOperatorSymbol();
 
     void Calculate();
 
 private:
     int _SelectButton;
+    std::string _Operator;
     File _File;
     Consol _Consol;
-    Calculator _Calculator;
+    ThreadManager _ThreadManager;
 
 
 };
