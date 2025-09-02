@@ -2,10 +2,6 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
 
-#include <Accumulator/Accumulator.h>
-#include <Subtractor/Subtractor.h>
-#include <Multiplier/Multiplier.h>
-#include <Divider/Divider.h>
 #include <vector>
 #include <memory>
 #include <functional>
@@ -19,7 +15,7 @@ public:
 
     ~Operator() = default;
 
-    virtual int TaskDefinition(const std::vector<int> &Storage, int StartIndex, int EndIndex);
+    virtual double TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex) = 0;
 
 
 protected:

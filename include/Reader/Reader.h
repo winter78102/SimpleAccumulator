@@ -18,10 +18,10 @@ public:
 
     virtual void GetString() = 0;
 
-    std::vector<int> GetStorage();
+    std::vector<double> GetStorage();
 
 protected:
-    std::vector<int> _Storage;
+    std::vector<double> _Storage;
     std::string _InputString;
 };
 

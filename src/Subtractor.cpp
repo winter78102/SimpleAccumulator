@@ -1,10 +1,10 @@
 #include <Subtractor/Subtractor.h>
 
-int Subtractor::TaskDefinition(const std::vector<int> &Storage, int StartIndex, int EndIndex) {
+double Subtractor::TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex) {
     if (Storage.empty()) { return -1; }
-    int Result = Storage[StartIndex];
-    for (int i = StartIndex + 1; i < EndIndex; i++) {
-        Result -= Storage[i];
+    double Result = Storage[0];
+    for (int i = StartIndex; i < EndIndex - 1; i++) {
+        Result = Result - Storage[i + 1];
     }
     return Result;
 }

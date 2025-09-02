@@ -6,10 +6,11 @@ int ThreadManager::PossibleNumber() {
 }
 
 
-void ThreadManager::SetThreadNumber() {
+void ThreadManager::SetThreadNumber(const std::vector<double> &Storage) {
     int EnteredThreadNumber;
     while (1) {
-        std::cout << ">>Enter the number of threads for calculation from 1 to " << PossibleNumber() << std::endl;
+        std::cout << ">>Enter the number of threads for calculation from 1 to "
+                  << std::min<int>(PossibleNumber(), Storage.size()) << std::endl;
         std::cin >> EnteredThreadNumber;
         if (EnteredThreadNumber <= PossibleNumber()) {
             _ThreadNumber = EnteredThreadNumber;
@@ -19,12 +20,11 @@ void ThreadManager::SetThreadNumber() {
     }
 }
 
-void ThreadManager::FillThreads(const std::vector<int> &Storage) {
+void ThreadManager::FillThreads(const std::vector<double> &Storage) {
     int ThreadSize = Storage.size() / _ThreadNumber;
     int ModSize = Storage.size() - ThreadSize * _ThreadNumber;
     int j = 0;
-    Operator *Channel = nullptr;
-
+    Operator *Channel;
     switch (_InputSymbol) {
         case '+':
             Channel = &_Accum;
@@ -39,21 +39,24 @@ void ThreadManager::FillThreads(const std::vector<int> &Storage) {
             Channel = &_Divider;
             break;
     }
-
-
     for (int i = 0; i < _ThreadNumber; i++) {
-
-        _FutureOfTasks.push_back(std::async(std::launch::async, &Channel->TaskDefinition(), Storage, j,
-                                            i == _ThreadNumber - 1 ? j + ThreadSize + ModSize : j + ThreadSize));
+        _FutureOfTasks.push_back(std::async(std::launch::async,
+                                            &Operator::TaskDefinition, Channel, Storage, j,
+                                            (i == _ThreadNumber - 1 ? j + ThreadSize + ModSize : j + ThreadSize)));
         j += ThreadSize;
     }
-
-    int result = 0;
-
+    std::vector<double> TempResult;
+    double Result;
     for (auto &f: _FutureOfTasks) {
-        result += f.get();   // waits if not finished yet
+        TempResult.push_back(f.get());
     }
-    std::cout << ">>Sum = " << result << std::endl;
+
+    if (TempResult.size() > 1) {
+        Result = Channel->TaskDefinition(TempResult, 0, TempResult.size());
+    } else {
+        Result = TempResult.at(0);
+    }
+    std::cout << ">>Result = " << Result << std::endl;
 }
 
 void ThreadManager::SetInputSymbol(char Symbol) {

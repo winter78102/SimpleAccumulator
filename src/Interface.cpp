@@ -17,7 +17,7 @@ void Interface::SelectStage() {
 
 
 void Interface::Calculate() {
-    std::vector<int> Storage;
+    std::vector<double> Storage;
     Reader *InputChannel;
     switch (_SelectButton) {
         case 1:
@@ -32,17 +32,16 @@ void Interface::Calculate() {
     InputChannel->GetString();
     InputChannel->Read();
     Storage = InputChannel->GetStorage();
-    _ThreadManager.SetThreadNumber();
-    _ThreadManager.FillTaskQueue();
-    _ThreadManager.FillThreadsQueue(Storage);
-
+    _ThreadManager.SetThreadNumber(Storage);
+    SetOperatorSymbol();
+    _ThreadManager.FillThreads(Storage);
 }
 
 void Interface::SetOperatorSymbol() {
     char Symbol;
-    std::cout<<">>Enter your desired operation symbol from + / * -"<<std::endl;
-    std::cin>>Symbol ;
-    _ThreadManager.
+    std::cout << ">>Enter your desired operation symbol from + / * -" << std::endl;
+    std::cin >> Symbol;
+    _ThreadManager.SetInputSymbol(Symbol);
 }
 
 

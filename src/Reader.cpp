@@ -13,6 +13,6 @@ void Reader::Read() {
     }
 }
 
-std::vector<int> Reader::GetStorage() {
+std::vector<double> Reader::GetStorage() {
     return _Storage;
 }
