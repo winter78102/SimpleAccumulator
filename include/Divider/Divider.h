@@ -2,13 +2,14 @@
 #ifndef DIVIDER_H
 #define DIVIDER_H
 
-#include <Operator/Operator.h>
+#include <Multiplier/Multiplier.h>
+#include <cmath>
 
-class Divider : public Operator {
+class Divider : public Multiplier {
 public:
     Divider();
 
-    double TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex) override;
+    std::vector<double> FixDataModel(const std::vector<double> &Storage);
 
 private:
 

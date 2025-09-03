@@ -24,6 +24,7 @@ void ThreadManager::FillThreads(const std::vector<double> &Storage) {
     int ThreadSize = Storage.size() / _ThreadNumber;
     int ModSize = Storage.size() - ThreadSize * _ThreadNumber;
     int j = 0;
+    std::vector<double> StoreData;
     Operator *Channel;
     switch (_InputSymbol) {
         case '+':
@@ -39,9 +40,20 @@ void ThreadManager::FillThreads(const std::vector<double> &Storage) {
             Channel = &_Divider;
             break;
     }
+
+    if (Channel == &_Subtract) {
+        StoreData = (&_Subtract)->FixDataModel(Storage);
+        Channel = &_Accum;
+    } else if (Channel == &_Divider) {
+        StoreData = (&_Divider)->FixDataModel(Storage);
+        Channel = &_Multiply;
+    } else {
+        StoreData = Storage;
+    }
+
     for (int i = 0; i < _ThreadNumber; i++) {
         _FutureOfTasks.push_back(std::async(std::launch::async,
-                                            &Operator::TaskDefinition, Channel, Storage, j,
+                                            &Operator::TaskDefinition, Channel, StoreData, j,
                                             (i == _ThreadNumber - 1 ? j + ThreadSize + ModSize : j + ThreadSize)));
         j += ThreadSize;
     }
@@ -52,11 +64,14 @@ void ThreadManager::FillThreads(const std::vector<double> &Storage) {
     }
 
     if (TempResult.size() > 1) {
+
         Result = Channel->TaskDefinition(TempResult, 0, TempResult.size());
     } else {
         Result = TempResult.at(0);
     }
     std::cout << ">>Result = " << Result << std::endl;
+    _FutureOfTasks.clear();
+
 }
 
 void ThreadManager::SetInputSymbol(char Symbol) {

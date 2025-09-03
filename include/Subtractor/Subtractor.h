@@ -3,14 +3,15 @@
 #ifndef SUBTRACTOR_H
 #define SUBTRACTOR_H
 
-#include <Operator/Operator.h>
+#include <Accumulator/Accumulator.h>
 #include <vector>
 
-class Subtractor : public Operator {
+class Subtractor : public Accumulator {
 public:
     Subtractor();
 
-    double TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex) override;
+    std::vector<double> FixDataModel(const std::vector<double> &Storage);
+
 };
 
 #endif //SUBTRACTOR_H
