@@ -13,7 +13,7 @@
 #include <vector>
 #include <functional>
 #include <thread>
-#include <future>
+#include <condition_variable>
 
 
 class ThreadManager {
@@ -30,7 +30,6 @@ public:
 private:
 
     int _ThreadNumber;
-    std::vector<std::future<double>> _FutureOfTasks;
     std::vector<Operator> _TaskVector;
     char _InputSymbol;
     Accumulator _Accum;

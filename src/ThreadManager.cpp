@@ -24,7 +24,7 @@ void ThreadManager::FillThreads(const std::vector<double> &Storage) {
     int ThreadSize = Storage.size() / _ThreadNumber;
     int ModSize = Storage.size() - ThreadSize * _ThreadNumber;
     int j = 0;
-    std::vector<double> StoreData;
+
     Operator *Channel;
     switch (_InputSymbol) {
         case '+':
@@ -41,37 +41,37 @@ void ThreadManager::FillThreads(const std::vector<double> &Storage) {
             break;
     }
 
-    if (Channel == &_Subtract) {
-        StoreData = (&_Subtract)->FixDataModel(Storage);
-        Channel = &_Accum;
-    } else if (Channel == &_Divider) {
-        StoreData = (&_Divider)->FixDataModel(Storage);
-        Channel = &_Multiply;
-    } else {
-        StoreData = Storage;
-    }
 
+    std::vector<std::thread> ThreadVector;
     for (int i = 0; i < _ThreadNumber; i++) {
-        _FutureOfTasks.push_back(std::async(std::launch::async,
-                                            &Operator::TaskDefinition, Channel, StoreData, j,
-                                            (i == _ThreadNumber - 1 ? j + ThreadSize + ModSize : j + ThreadSize)));
+        ThreadVector.push_back(
+                std::thread(&Operator::TaskDefinition, Channel, Storage, j,
+                            i == _ThreadNumber - 1 ? j + ThreadSize + ModSize : j + ThreadSize, i));
+
         j += ThreadSize;
     }
     std::vector<double> TempResult;
     double Result;
-    for (auto &f: _FutureOfTasks) {
-        TempResult.push_back(f.get());
+    for (auto &t: ThreadVector) {
+        t.join();
     }
 
-    if (TempResult.size() > 1) {
+    if (Channel == &_Subtract) {
+        (&_Accum)->TaskDefinition(Channel->GetResult(), 0, Channel->GetResult().size(), 0);
+        std::cout << ">>Result = " << (&_Accum)->GetLastElement() << std::endl;
+        Channel->DeleteObjectMemory();
+        (&_Accum)->DeleteObjectMemory();
 
-        Result = Channel->TaskDefinition(TempResult, 0, TempResult.size());
+    } else if (Channel == &_Divider) {
+        (&_Multiply)->TaskDefinition(Channel->GetResult(), 0, Channel->GetResult().size(), 0);
+        std::cout << ">>Result = " << (&_Multiply)->GetLastElement() << std::endl;
+        Channel->DeleteObjectMemory();
+        (&_Multiply)->DeleteObjectMemory();
     } else {
-        Result = TempResult.at(0);
+        Channel->TaskDefinition(Channel->GetResult(), 0, Channel->GetResult().size(), 0);
+        std::cout << ">>Result = " << Channel->GetLastElement() << std::endl;
+        Channel->DeleteObjectMemory();
     }
-    std::cout << ">>Result = " << Result << std::endl;
-    _FutureOfTasks.clear();
-
 }
 
 void ThreadManager::SetInputSymbol(char Symbol) {

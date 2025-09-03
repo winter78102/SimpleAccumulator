@@ -12,7 +12,7 @@ public:
 
     Accumulator(const Accumulator &other) = default;
 
-    double TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex) override;
+    void TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) override;
 
 };
 

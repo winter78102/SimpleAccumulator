@@ -8,7 +8,7 @@ class Multiplier : public Operator {
 public:
     Multiplier();
 
-    double TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex) override;
+    void TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) override;
 
 private:
 

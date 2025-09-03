@@ -10,7 +10,7 @@ class Subtractor : public Accumulator {
 public:
     Subtractor();
 
-    std::vector<double> FixDataModel(const std::vector<double> &Storage);
+    void TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) override;
 
 };
 
