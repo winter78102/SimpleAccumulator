@@ -1,4 +1,4 @@
-#include <Multiplier/Multiplier.h>
+#include <Operator/Multiplier/Multiplier.h>
 
 void Multiplier::TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) {
 //    if (Storage.empty()) { return -1; }
@@ -14,4 +14,12 @@ void Multiplier::TaskDefinition(const std::vector<double> &Storage, int StartInd
 
 Multiplier::Multiplier() {
     _Symbol = '*';
+}
+
+double Multiplier::LastResult(const std::vector<double> &Storage) {
+    double Result = 1;
+    for (double i: Storage) {
+        Result *= i;
+    }
+    return Result;
 }

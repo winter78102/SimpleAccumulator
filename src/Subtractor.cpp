@@ -1,4 +1,4 @@
-#include <Subtractor/Subtractor.h>
+#include <Operator/Subtractor/Subtractor.h>
 
 
 void Subtractor::TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) {
@@ -28,4 +28,8 @@ void Subtractor::TaskDefinition(const std::vector<double> &Storage, int StartInd
 
 Subtractor::Subtractor() {
     _Symbol = '-';
+}
+
+double Subtractor::LastResult(const std::vector<double> &Storage) {
+    return _AccumObj.LastResult(Storage);
 }

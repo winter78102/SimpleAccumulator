@@ -4,10 +4,6 @@
 
 #include <iostream>
 #include <Operator/Operator.h>
-#include <Accumulator/Accumulator.h>
-#include <Subtractor/Subtractor.h>
-#include <Multiplier/Multiplier.h>
-#include <Divider/Divider.h>
 #include <algorithm>
 #include <memory>
 #include <vector>
@@ -20,11 +16,11 @@ class ThreadManager {
 public:
     int PossibleNumber();
 
-    void SetThreadNumber(const std::vector<double> &Storage);
+    void SetThreadNumber(int ThreadNumber);
 
     void SetInputSymbol(char Symbol);
 
-    void FillThreads(const std::vector<double> &Storage);
+    void FillThreads(const std::vector<double> &Storage, Operator &Channel);
 
 
 private:
@@ -32,10 +28,11 @@ private:
     int _ThreadNumber;
     std::vector<Operator> _TaskVector;
     char _InputSymbol;
-    Accumulator _Accum;
-    Subtractor _Subtract;
-    Multiplier _Multiply;
-    Divider _Divider;
+    Operator *_OperatorObj;
+//    Accumulator _Accum;
+//    Subtractor _Subtract;
+//    Multiplier _Multiply;
+//    Divider _Divider;
 
 
 };

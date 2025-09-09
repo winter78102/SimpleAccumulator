@@ -18,6 +18,8 @@ public:
 
     virtual void TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) = 0;
 
+    virtual double LastResult(const std::vector<double> &Storage) = 0;
+
     std::vector<double> &GetResult();
 
     void DeleteObjectMemory();

@@ -5,7 +5,8 @@ int main() {
     Interface InterfaceObj;
     while (1) {
         InterfaceObj.SelectStage();
-        InterfaceObj.Calculate();
+        InterfaceObj.ThreadNumber();
+        InterfaceObj.SetOperatorSymbol();
     }
     return 0;
 }

@@ -5,28 +5,23 @@
 
 #include <iostream>
 #include <vector>
-#include <File/File.h>
-#include <Consol/Consol.h>
-#include "ThreadManager//ThreadMnager.h"
+#include <Client/Client.h>
 #include <numeric>
 
 
 class Interface {
 public:
-    Interface() = default;
 
     void SelectStage();
 
+    void ThreadNumber();
+
     void SetOperatorSymbol();
 
-    void Calculate();
 
 private:
-    int _SelectButton;
-    std::string _Operator;
-    File _File;
-    Consol _Consol;
-    ThreadManager _ThreadManager;
+
+    Client _Client;
 
 
 };

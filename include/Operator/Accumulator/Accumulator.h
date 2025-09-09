@@ -14,6 +14,8 @@ public:
 
     void TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) override;
 
+    double LastResult(const std::vector<double> &Storage) override;
+
 };
 
 #endif //ACCUMULATOR_H

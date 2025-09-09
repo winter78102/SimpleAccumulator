@@ -1,7 +1,7 @@
-#include <Divider/Divider.h>
+#include <Operator/Divider/Divider.h>
 
 void Divider::TaskDefinition(const std::vector<double> &Storage, int StartIndex, int EndIndex, int ThreadNumber) {
-//    if (Storage.empty()) { return -1; }
+    if (Storage.empty()) { return; }
     double Result = 1;
     if (ThreadNumber != 0) {
         for (int i = StartIndex; i < EndIndex; i++) {
@@ -26,5 +26,9 @@ void Divider::TaskDefinition(const std::vector<double> &Storage, int StartIndex,
 
 Divider::Divider() {
     _Symbol = '/';
+}
+
+double Divider::LastResult(const std::vector<double> &Storage) {
+    return _MultiplyObj.LastResult(Storage);
 }
 
