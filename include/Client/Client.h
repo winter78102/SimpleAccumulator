@@ -5,8 +5,8 @@
 #ifndef MULTITHREAD_CLIENT_H
 #define MULTITHREAD_CLIENT_H
 
-#include <Reader/File/File.h>
-#include <Reader/Consol/Consol.h>
+#include <Parser/File/File.h>
+#include <Parser/Consol/Consol.h>
 #include <Operator/Accumulator/Accumulator.h>
 #include <Operator/Subtractor/Subtractor.h>
 #include <Operator/Multiplier/Multiplier.h>

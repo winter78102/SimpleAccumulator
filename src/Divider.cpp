@@ -18,10 +18,9 @@ void Divider::TaskDefinition(const std::vector<double> &Storage, int StartIndex,
         Result = Result * FirstNumber;
     }
 
-
-    _Mutex.lock();
+    std::lock_guard<std::mutex> guard(_Mutex);
     _Result.push_back(Result);
-    _Mutex.unlock();
+
 }
 
 Divider::Divider() {

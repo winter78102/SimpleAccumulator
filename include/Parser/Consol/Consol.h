@@ -3,9 +3,9 @@
 #define CONSOL_H
 
 #include "iostream"
-#include "Reader/Reader.h"
+#include "Parser/Parser.h"
 
-class Consol : public Reader {
+class Consol : public Parser {
 public:
     void GetString() override;
 

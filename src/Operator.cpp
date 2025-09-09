@@ -1,4 +1,4 @@
-#include <Operator/Operator.h>
+#include "Operator/Operator.h"
 
 std::vector<double> &Operator::GetResult() {
     return _Result;

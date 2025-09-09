@@ -1,6 +1,6 @@
-#include <Reader/Reader.h>
+#include <Parser/Parser.h>
 
-void Reader::Read() {
+void Parser::Parse() {
     std::string Token, Remain;
 
     std::regex Matched(R"(\d+(?:\.\d+)?)");
@@ -13,6 +13,6 @@ void Reader::Read() {
     }
 }
 
-std::vector<double> Reader::GetStorage() {
+std::vector<double> Parser::GetStorage() {
     return _Storage;
 }

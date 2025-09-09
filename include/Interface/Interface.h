@@ -7,6 +7,7 @@
 #include <vector>
 #include <Client/Client.h>
 #include <numeric>
+#include <Operator/Operator.h>
 
 
 class Interface {

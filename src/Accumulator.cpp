@@ -6,9 +6,8 @@ void Accumulator::TaskDefinition(const std::vector<double> &Storage, int StartIn
     for (int i = StartIndex; i < EndIndex; i++) {
         Result += Storage[i];
     }
-    _Mutex.lock();
+    std::lock_guard<std::mutex> guard(_Mutex);
     _Result.push_back(Result);
-    _Mutex.unlock();
 }
 
 Accumulator::Accumulator() {

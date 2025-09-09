@@ -2,7 +2,7 @@
 
 
 void Client::SelectReader(int Selector) {
-    Reader *InputChannel;
+    Parser *InputChannel;
     switch (Selector) {
         case 1:
             InputChannel = &_File;
@@ -13,7 +13,7 @@ void Client::SelectReader(int Selector) {
             break;
     }
     InputChannel->GetString();
-    InputChannel->Read();
+    InputChannel->Parse();
     _Storage = InputChannel->GetStorage();
 }
 

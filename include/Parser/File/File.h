@@ -7,9 +7,9 @@
 
 #include <iostream>
 #include <fstream>
-#include "Reader/Reader.h"
+#include <Parser/Parser.h>
 
-class File : public Reader {
+class File : public Parser {
 public:
     void GetString() override;
 

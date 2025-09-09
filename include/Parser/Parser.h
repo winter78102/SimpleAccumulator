@@ -10,11 +10,11 @@
 #include <iostream>
 #include <regex>
 
-class Reader {
+class Parser {
 public:
-    Reader() = default;
+    Parser() = default;
 
-    void Read();
+    void Parse();
 
     virtual void GetString() = 0;
 

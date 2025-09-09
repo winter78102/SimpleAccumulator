@@ -20,9 +20,8 @@ void Subtractor::TaskDefinition(const std::vector<double> &Storage, int StartInd
     }
 
 
-    _Mutex.lock();
+    std::lock_guard<std::mutex> guard(_Mutex);
     _Result.push_back(Result);
-    _Mutex.unlock();
 }
 
 

@@ -1,5 +1,4 @@
 #include <Interface/Interface.h>
-#include <Operator/Operator.h>
 
 void Interface::SelectStage() {
     while (1) {

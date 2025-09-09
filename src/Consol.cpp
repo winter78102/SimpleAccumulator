@@ -1,7 +1,7 @@
-#include<Reader/Consol/Consol.h>
+#include<Parser/Consol/Consol.h>
 #include <string>
 #include <regex>
-#include <iterator>
+
 
 void Consol::GetString() {
 
